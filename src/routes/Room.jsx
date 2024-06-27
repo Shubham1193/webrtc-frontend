@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams  , useLocation} from "react-router-dom";
 import Editor from "./Editor";
 
 
@@ -35,19 +35,26 @@ const videoConstraints = {
 };
 
 const Room = (props) => {
+  const location = useLocation();
+  const { id } = location.state || {};
+  // console.log(id)
+
+  // if (!id) {
+  //     return <div>Error: No room ID provided</div>;
+  // }
     const [peers, setPeers] = useState([]);
     const socketRef = useRef();
     const userVideo = useRef();
     const peersRef = useRef([]);
     const [code , setCode] = useState('')
-    const {roomID} = useParams();
+    // const {id} = id;
 
     useEffect(() => {
-        socketRef.current = io.connect("https://webrtc-backend-1-yf6a.onrender.com");
-        console.log(roomID)
-        navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: false }).then(stream => {
+        socketRef.current = io.connect("https://webrtc-backend-a67e.onrender.com");
+        console.log(id)
+        navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
-            socketRef.current.emit("join room", roomID);
+            socketRef.current.emit("join room", id);
             socketRef.current.on("all users", users => {
                 console.log(users)
                 const peers = [];
@@ -183,7 +190,7 @@ const Room = (props) => {
     // const handleCodeChange = (e) => {
     //   const newCode = e.target.value
     //   setCode(newCode)
-    //   socketRef.current.emit("update-code" , {code , roomID})
+    //   socketRef.current.emit("update-code" , {code , id})
     // }
 
     // useEffect (() => {
@@ -196,12 +203,14 @@ const Room = (props) => {
     const handleCodeChange = (e) => {
       const newCode = e.target.value;
       setCode(newCode);
-      socketRef.current.emit("update-code", { code: newCode, roomID });
+      socketRef.current.emit("update-code", { code: newCode, id });
   };
 
     return (
         <div style={{display : "flex" , width:"100vw" , height :"100vh"}}>
+         
             <div style={{width : "74%" ,height : "100%" , border: "2px solid black" }} >
+              <h2>{id}</h2>
               <textarea rows={50} cols={100} style={{cursor : "pointer" , backgroundColor : "red"}} onChange={handleCodeChange} value={code}></textarea>
               {/* <Editor/> */}
             </div>

@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1",
     "react-simple-code-editor": "^0.13.1",
+    "serve": "^14.2.3",
     "simple-peer": "^9.11.1",
     "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.11",
