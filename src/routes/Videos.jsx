@@ -47,7 +47,7 @@ const Videos = ({id}) => {
 
     const call = (remotePeerId) => {
         var getUserMedia = navigator.getUserMedia
-        getUserMedia({ audio: false, video: true }, (mediaStream) => {
+        getUserMedia({ audio: true, video: true }, (mediaStream) => {
             currentUserVideoRef.current.srcObject = mediaStream
             currentUserVideoRef.current.play()
             const call = peerInstance.current.call(remotePeerId, mediaStream)
