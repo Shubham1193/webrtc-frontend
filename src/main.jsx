@@ -4,14 +4,23 @@ import App from './App.jsx'
 import './index.css'
 import "./setup.js"
 import { SocketProvider } from './context/SocketProvider.jsx'
-
+import {store , persistor} from './redux/store.js'
+import {Provider} from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+// import ThemeProvider from './components/Themeprovider.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   
     
-      <SocketProvider>
-        <App />
-      </SocketProvider>
+  <PersistGate persistor={persistor}>
+  <Provider store = {store}>
+   
+    <SocketProvider>
+   <App className = "w-full" />
+   </SocketProvider>
+  
+ </Provider>
+</PersistGate>,
     
 
 )
