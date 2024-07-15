@@ -26,7 +26,7 @@ const Problems = () => {
     const fetchProblems = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/user/problems"
+          "https://webrtc-backend-upzh.onrender.com/api/user/problems"
         );
         console.log(response.data);
         setQuestions(response.data);
