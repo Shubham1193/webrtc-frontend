@@ -11,7 +11,8 @@ const Navbar = ({
     fontSize,
     setFontSize,
     submit,
-    searchQuestion
+    searchQuestion,
+    roomid
 }) => {
     const languages = [
         // { value: "c", label: "C" },
@@ -38,7 +39,7 @@ const Navbar = ({
     }
 
     return (
-        <div className="flex bg-[#222222] p-2 h-[100%]">
+        <div className="flex bg-[#03B2F7] p-2 h-[100%]  items-center">
             <Select
                 value={{ value: userLang, label: userLang }}
                 onChange={(option) => setUserLang(option.value)}
@@ -69,9 +70,11 @@ const Navbar = ({
                 />
             </div>
 
-            <button onClick={submit} className='text-white border-2 px-3 bg-red-500 rounded-xl'>Run</button>
+            <button onClick={submit} className='text-white border-2  h-[60%] px-4 bg-[#3285E4] rounded-xl hover:bg-sky-700' >Run</button>
 
-            <button onClick={() => searchQuestion()} className='text-white border-2 px-3 bg-blue-400 rounded-xl mx-2'>Search Problems</button>
+            <button onClick={() => searchQuestion()} className='text-white h-[60%] border-2 px-3 bg-[#3285E4] rounded-xl mx-2 hover:bg-sky-700' >Search Problems</button>
+
+            <div className='p-3 flex justify-center items-center bg-white rounded-xl mx-3'><p>{roomid}</p></div>
         </div>
     );
 }

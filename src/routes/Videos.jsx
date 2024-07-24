@@ -8,7 +8,6 @@ import Peer from 'peerjs';
 
 const Videos = () => {
     const { roomId: id } = useSelector((state) => state.room);
-    console.log(id)
     const { peerId, peerInstance } = useSelector((state) => state.peer);
     const remoteVideoRef = useRef(null);
     const currentUserVideoRef = useRef();
@@ -41,13 +40,15 @@ const Videos = () => {
         }
 
         socket.on('other user', (data) => {
+            console.log(data)
             call(data[0]);
         });
-
+        socket.on("room full",handleRoomsfull)
         socket.on('userdisconnect', handleUserDisconnect);
 
         return () => {
             socket.off('userdisconnect', handleUserDisconnect);
+            socket.off('room full' , handleRoomsfull)
         };
     }, [peerInstance, socket]);
 
@@ -57,6 +58,11 @@ const Videos = () => {
             remoteVideoRef.current.srcObject = null;
         }
     };
+
+    const handleRoomsfull = () => {
+        alert("room is full")
+        navigate('/create')
+    }
 
     const call = (remotePeerId) => {
         navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then((mediaStream) => {
@@ -86,7 +92,7 @@ const Videos = () => {
             dispatch(clearPeerState());
         }
         socket.emit('leave room', { roomId: id, peerId });
-        navigate('/');
+        navigate('/create');
     };
 
     return (

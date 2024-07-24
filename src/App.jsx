@@ -5,14 +5,15 @@ import Room from "./routes/Room";
 import Signin from "./routes/Singnin";
 import PrivateRoute from "./components/PrivateRoute";
 import Problems from "./routes/Problems";
+import Home from "./routes/Home";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-
+        <Route path = "/" element={<Home/>}/>
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<CreateRoom />} />
+          <Route path="/create" element={<CreateRoom />} />
           <Route path="/room" element={<Room />} />
           <Route path='/problems' element={<Problems/>} />
         </Route>

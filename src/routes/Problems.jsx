@@ -20,13 +20,13 @@ const Problems = () => {
     dispatch(clearPeerState())
     socket.emit("disco" , {peerId , token : localStorage.getItem("access_token")})
     // dispatch(clearRoomId());
-})
+  })
 
   useEffect(() => {
     const fetchProblems = async () => {
       try {
         const response = await axios.get(
-          "https://webrtc-backend-upzh.onrender.com/api/user/problems"
+          "http://localhost:8000/api/user/problems"
         );
         console.log(response.data);
         setQuestions(response.data);
@@ -39,7 +39,7 @@ const Problems = () => {
   }, []);
 
   return (
-    <div className="w-[100%]  flex flex-col items-center  bg-[#262626] text-white">
+    <div className="w-[100%]  flex flex-col items-center  bg-[#262626] text-white h-[100vh]">
       <div className="border-2 p-4 text-3xl m-6 rounded-2xl">Problems</div>
       <div className="w-[50%] flex flex-col items-center p-4 rounded-2xl">
         {questions.map((ques, index) => (

@@ -1,4 +1,3 @@
-// src/components/Room.js
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Editor from "@monaco-editor/react";
@@ -7,14 +6,13 @@ import Navbar from "./Navbar";
 import { useSocket } from "../context/SocketProvider";
 import Videos from "./Videos";
 import { useSelector } from "react-redux";
-// import { json } from "express";
+
 
 const Room = () => {
+
   const location = useLocation();
   let ques = location.state?.question;
-  // console.log("quwe" , ques)
   const { roomId: id } = useSelector((state) => state.room);
-  console.log(id);
 
   const navigate = useNavigate();
   const [userLang, setUserLang] = useState("python");
@@ -28,10 +26,7 @@ const Room = () => {
   const [question, setQuestion] = useState();
   //
   useEffect(() => {
-    //fix question sync
-
     if (ques) {
-      // fetchQuestion(questionId);
       console.log(userLang);
       setQuestion(ques);
       if (userLang == "python") {
@@ -54,33 +49,18 @@ const Room = () => {
     };
   }, [id, ques, userLang]);
 
-  // const fetchQuestion = async (questionId) => {
-  //   try {
-  //     socket.emit("questionId" , {id , questionId})
-  //     const response = await axios.get(`http://localhost:8000/api/user/problem/${questionId}`);
-  //     console.log(response.data)
-  //     setQuestion(response.data);
-  //     socket.emit("question" , {id , question})
-  //   } catch (error) {
-  //     console.error("Error fetching question:", error);
-  //   }
-  // };
+
 
   const handleQuestionId = (ques) => {
-    // console.log(ques);
     setQuestion(ques);
-    console.log(ques.defaultcode);
-    // fetchQuestion(ques)
   };
 
   const handleUpdatedCode = (code) => {
-    console.log(code);
     setCode(code);
   };
 
   const handleCodeResult = (result) => {
     setResult(JSON.parse(result));
-    console.log(result)
   };
 
   const handleCodeChange = (value) => {
@@ -91,7 +71,7 @@ const Room = () => {
   const handleSubmit = async () => {
     const data = { code, userLang, id, question };
     try {
-      await axios.post("https://webrtc-backend-upzh.onrender.com/submit", data);
+      await axios.post("http://localhost:8000/submit", data);
     } catch (error) {
       console.error("Submit error:", error);
     }
@@ -119,6 +99,7 @@ const Room = () => {
           setFontSize={setFontSize}
           submit={handleSubmit}
           searchQuestion={searchQuestion}
+          roomid = {id}
         />
       </div>
 
@@ -126,17 +107,22 @@ const Room = () => {
         <div className="w-[25%] h-[100%] p-2 bg-[#262628] text-white overflow-auto">
           {question ? (
             <>
-              <div className="text-2xl mt-4 border-1  w-fit px-4 py-3 rounded-xl bg-[#454545]">
+              <div className="text-3xl mt-4 border-1  w-fit px-4 py-3 rounded-xl bg-[#454545]">
                 {question.title}
               </div>
-              <div className="text-l mt-4   w-fit px-4 py-3 rounded-xl bg-[#454545]">
+              <div className=" mt-4">
+                <span className="text-xl  border-1  w-fit px-4 py-2 rounded-xl bg-[#454545] text-[#6376F0]">{question.category} </span> 
+                <span className="text-xl mx-2 border-1  w-fit px-4 py-2 rounded-xl bg-[#454545] text-[#6376F0]" >{question.difficulty} </span>
+              </div>
+
+              <div className="text-xl mt-4   w-fit px-4 py-3 rounded-xl bg-[#454545]">
                 {question.description}
               </div>
-              <div className="mt-4  w-fit  px-4 py-3 rounded-xl text-l bg-[#454545]">
+              <div className="mt-4  w-fit  px-4 py-3 rounded-xl text-xl bg-[#454545]">
                 Constraints{" "}
                 {question.constraints.map((data, index) => (
                   <p
-                    className="text-l bg-[#454545]  rounded-xl "
+                    className="text-xl bg-[#454545]  rounded-xl "
                     key={index}
                   >
                     {" "}
@@ -144,21 +130,33 @@ const Room = () => {
                   </p>
                 ))}
               </div>
-              <div className="mt-4  w-[100%]  px-4 py-3 rounded-xl text-l bg-[#454545]">
+              <div className="mt-4  w-[100%]  px-4 py-3 rounded-xl text-xl bg-[#454545] ">
                 <>
-                  TestCase 1
+                  <div className="">TestCase 1</div>
                   {
                     Object.keys(question.testCases[0].input).map(res => (
                       <>
-                      {/* <br></br> */}
-                      <div>{res} : {JSON.stringify(question.testCases[0].input[res])}</div>
-                      {/* <span>{JSON.stringify(question.testCases[0].input[res])}</span> */}
+                      <div className="">- {res} : {JSON.stringify(question.testCases[0].input[res])}</div>
                       </>
                     ))
                   }
                  
                   
-                  <div>Output : {JSON.stringify(question.testCases[0].output)}</div>
+                  <div className="">- Output : {JSON.stringify(question.testCases[0].output)}</div>
+
+                  <br></br>
+
+                  <div className="">TestCase 2</div>
+                  {
+                    Object.keys(question.testCases[1].input).map(res => (
+                      <>
+                      <div className="p">- {res} : {JSON.stringify(question.testCases[1].input[res])}</div>
+                      </>
+                    ))
+                  }
+                 
+                  
+                  <div className="">- Output : {JSON.stringify(question.testCases[1].output)}</div>
                 </>
               </div>
             </>
