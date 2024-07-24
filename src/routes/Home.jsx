@@ -27,7 +27,7 @@ const Home = () => {
                     <div>
                         <button to={"/create"} className="text-xl ">
                             {
-                                !currentUser ? "Sign In" : <img src={profile} className='w-[50px] h-[100%]' ></img>
+                                !currentUser ? <Link to={'/sign-in'}>SignIn</Link> : <img src={profile} className='w-[50px] h-[100%]' ></img>
                             }
                         </button>
                     </div>

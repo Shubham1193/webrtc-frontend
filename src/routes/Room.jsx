@@ -71,7 +71,7 @@ const Room = () => {
   const handleSubmit = async () => {
     const data = { code, userLang, id, question };
     try {
-      await axios.post("http://localhost:8000/submit", data);
+      await axios.post("https://webrtc-backend-t27s.onrender.com/submit", data);
     } catch (error) {
       console.error("Submit error:", error);
     }
