@@ -43,12 +43,12 @@ const Videos = () => {
             console.log(data)
             call(data[0]);
         });
-        socket.on("room full",handleRoomsfull)
+        socket.on("room full", handleRoomsfull)
         socket.on('userdisconnect', handleUserDisconnect);
 
         return () => {
             socket.off('userdisconnect', handleUserDisconnect);
-            socket.off('room full' , handleRoomsfull)
+            socket.off('room full', handleRoomsfull)
         };
     }, [peerInstance, socket]);
 
@@ -78,7 +78,7 @@ const Videos = () => {
 
     const leaveRoom = () => {
         // const token = localStorage.getItem("access_token")
-        socket.emit("disco" , {peerId , token : localStorage.getItem("access_token")})
+        socket.emit("disco", { peerId, token: localStorage.getItem("access_token") })
         dispatch(clearPeerState())
         dispatch(clearRoomId());
         if (currentUserVideoRef.current && currentUserVideoRef.current.srcObject) {

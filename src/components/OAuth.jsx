@@ -17,7 +17,8 @@ export default function OAuth() {
     try {
       const resultsFromGoogle = await signInWithPopup(auth, provider);
       console.log(resultsFromGoogle.user.displayName)
-      const res = await fetch("https://webrtc-backend-t27s.onrender.com/api/auth/google", {
+      // const res = await fetch("https://webrtc-backend-t27s.onrender.com/api/auth/google", {
+       const res = await fetch("http://3.27.129.89:8000/api/auth/google" , {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

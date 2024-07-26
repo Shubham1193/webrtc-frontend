@@ -6,6 +6,7 @@ import Signin from "./routes/Singnin";
 import PrivateRoute from "./components/PrivateRoute";
 import Problems from "./routes/Problems";
 import Home from "./routes/Home";
+import Submission from "./routes/Submission";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/create" element={<CreateRoom />} />
           <Route path="/room" element={<Room />} />
           <Route path='/problems' element={<Problems/>} />
+          <Route path='/submission' element={<Submission/>} />
         </Route>
 
         <Route path="/sign-in" element={<Signin />} />

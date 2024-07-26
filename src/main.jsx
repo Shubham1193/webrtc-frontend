@@ -14,8 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     
   <PersistGate persistor={persistor}>
   <Provider store = {store}>
-   
-    <SocketProvider>
+       <SocketProvider>
    <App className = "w-full" />
    </SocketProvider>
   

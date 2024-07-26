@@ -9,6 +9,7 @@ import { Navbar } from "flowbite-react";
 import { Link } from 'react-router-dom';
 import profile from '../assets/profile.png'
 import { useSelector } from "react-redux";
+import MainNavbar from "../components/MainNavbar";
 
 
 const CreateRoom = () => {
@@ -58,27 +59,7 @@ const CreateRoom = () => {
 
         <>
 
-            <div className='p-6 px-8 flex justify-between items-center h-[10vh] bg-[#03B2F7]'>
-                <div>
-                    <span className="self-center whitespace-nowrap text-3xl font-semibold dark:text-white">SyncCode</span>
-                </div>
-                <div />
-                <div className=' w-[20%] flex justify-around items-center '>
-                    <div>
-                        <Link to={'/'} className="text-xl">Home</Link>
-                    </div>
-                    <div>
-                        <Link to={"/create"} className="text-xl">Room</Link>
-                    </div>
-                    <div>
-                        <button to={"/create"} className="text-xl ">
-                            {
-                                !currentUser ? "Sign In" : <img src={profile} className='w-[50px] h-[100%]' ></img>
-                            }
-                        </button>
-                    </div>
-                </div>
-            </div>
+           <MainNavbar/>
 
 
             <div className="w-[100%] h-[90vh] flex flex-col items-center  text-white">

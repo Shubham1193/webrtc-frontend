@@ -41,8 +41,10 @@ const Room = () => {
     socket.on("updated-code", handleUpdatedCode);
     socket.on("code-result", handleCodeResult);
     socket.on("syncQuestion", handleQuestionId);
+    socket.on("clear-res" , clearResult)
 
     return () => {
+      socket.off("clear-res" , clearResult)
       socket.off("syncQuestion", handleQuestionId);
       socket.off("code-result", handleCodeResult);
       socket.off("updated-code", handleUpdatedCode);
@@ -50,6 +52,10 @@ const Room = () => {
   }, [id, ques, userLang]);
 
 
+  const clearResult = (message) => {
+    console.log("res cleared")
+    setResult()
+  }
 
   const handleQuestionId = (ques) => {
     setQuestion(ques);
@@ -69,9 +75,11 @@ const Room = () => {
   };
 
   const handleSubmit = async () => {
+    socket.emit("clear-res" , {id})
     const data = { code, userLang, id, question };
     try {
-      await axios.post("https://webrtc-backend-t27s.onrender.com/submit", data);
+      // await axios.post("https://webrtc-backend-t27s.onrender.com/submit", data);
+      await axios.post("http://3.27.129.89:8000/submit", data);
     } catch (error) {
       console.error("Submit error:", error);
     }

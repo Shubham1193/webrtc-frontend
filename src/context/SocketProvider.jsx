@@ -10,8 +10,8 @@ export const useSocket = () => {
 };
 
 export const SocketProvider = (props) => {
-  const socket = useMemo(() => io("https://webrtc-backend-t27s.onrender.com"), []);
-
+  // const socket = useMemo(() => io("https://webrtc-backend-t27s.onrender.com"), []);
+  const socket = useMemo(() => io("http://3.27.129.89:8000"), []);
   return (
     <SocketContext.Provider value={socket}>
       {props.children}

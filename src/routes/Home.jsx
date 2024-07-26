@@ -4,35 +4,16 @@ import { Link } from 'react-router-dom';
 import bg from '../assets/bg2.png';
 import profile from '../assets/profile.png'
 import { useSelector } from 'react-redux';
+import MainNavbar from '../components/MainNavbar';
 
 const Home = () => {
 
-    const {currentUser} = useSelector((state) => state.user);
+    const { currentUser } = useSelector((state) => state.user);
     console.log(currentUser)
     return (
         <div className='w-[100vw] h-[100vh]'>
 
-            <div className='p-6 px-8 flex justify-between items-center h-[10vh] bg-[#03B2F7]'>
-                <div>
-                    <span className="self-center whitespace-nowrap text-3xl font-semibold dark:text-white">SyncCode</span>
-                </div>
-                <div/>
-                <div className=' w-[20%] flex justify-around items-center '>
-                    <div>
-                        <Link to={'/'} className="text-xl">Home</Link>
-                    </div>
-                    <div>
-                        <Link to={"/create"} className="text-xl">Room</Link>
-                    </div>
-                    <div>
-                        <button to={"/create"} className="text-xl ">
-                            {
-                                !currentUser ? <Link to={'/sign-in'}>SignIn</Link> : <img src={profile} className='w-[50px] h-[100%]' ></img>
-                            }
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <MainNavbar/>
 
             <div className='flex h-[45vh] mt-10'>
                 <div className='w-[45%] h-[45vh] flex flex-col justify-center items-center  ml-10'>
