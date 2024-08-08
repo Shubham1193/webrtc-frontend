@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar } from "flowbite-react";
 import { Link } from 'react-router-dom';
-import bg from '../assets/bg.png';
+import bg from '../assets/bg.jpg';
 import profile from '../assets/profile.png'
 import { useSelector } from 'react-redux';
 import MainNavbar from '../components/MainNavbar';
